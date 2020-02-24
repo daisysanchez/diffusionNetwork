@@ -165,7 +165,7 @@ while(count < quant){
   diffNetName = paste("diffnet", count+1, sep = "")
   
   
-  assign(authorYearName, authorYear[(count*1000+1):min((count*1000)+1000, nrow(authorYear)), 1:2])
+  assign(authorYearName, authorYear[(count*1000+1):min((count*1000)+1000, nrow(authorYear)), 1:3])
   assign(edgelistName, createEdgeList(get(authorYearName)))
   assign(adjmatName, creatAdjmat(get(edgelistName)))
   assign(diffNetName, createDiffNet(get(diffNetName), get(adjmatName)))
@@ -186,6 +186,6 @@ while(choice!=0){
   choice = as.integer(readline())
 }
 
-
+rm(authorYearName, choice, count, edgelistName, quant, authorYear, CSV, edgelist1)
 
 
