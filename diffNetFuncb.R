@@ -1,9 +1,7 @@
-#WORKING TO SEPERATE PROGRAM INTO FUNCTIONS
-
 #library(netdiffuseR)
 
 
-  createList <- function(CSV)
+createList <- function(CSV){
   authYr = data.frame(matrix(ncol = 3, nrow = 0), stringsAsFactors = FALSE)
   
   #renames columns in authYr
@@ -92,7 +90,7 @@ createEdgeList <- function(authorYear){
   return (authEdgelist)
 }
 
-creatAdjmat <- function(authEdgelist){
+createAdjmat <- function(authEdgelist){
   
   temp <- edgelist_to_adjmat(
     edgelist = authEdgelist[,1:2], 
@@ -171,7 +169,7 @@ while(count < quant){
   
   assign(authorYearName, authorYear[(count*500+1):min((count*500)+500, nrow(authorYear)), 1:3])
   assign(edgelistName, createEdgeList(get(authorYearName)))
-  assign(adjmatName, creatAdjmat(get(edgelistName)))
+  assign(adjmatName, createAdjmat(get(edgelistName)))
   assign(diffNetName, createDiffNet(get(diffNetName), get(adjmatName)))
   count = count + 1
 }
