@@ -1,5 +1,9 @@
 #library(netdiffuseR)
 
+<<<<<<< HEAD:diffNetParallel.R
+=======
+
+>>>>>>> 75861469b0f3a5ceafc854189cf8f8e1de220807:diffNetFuncb.R
 createList <- function(CSV){
   authYr = data.frame(matrix(ncol = 3, nrow = 0), stringsAsFactors = FALSE)
   
@@ -89,7 +93,12 @@ createEdgeList <- function(authorYear){
   return (authEdgelist)
 }
 
+<<<<<<< HEAD:diffNetParallel.R
 creatAdjmat <- function(authEdgelist){
+=======
+createAdjmat <- function(authEdgelist){
+  
+>>>>>>> 75861469b0f3a5ceafc854189cf8f8e1de220807:diffNetFuncb.R
   temp <- edgelist_to_adjmat(
     edgelist = authEdgelist[,1:2], 
     undirected = FALSE, 
@@ -167,7 +176,7 @@ while(count < quant){
   
   assign(authorYearName, authorYear[(count*1000+1):min((count*1000)+1000, nrow(authorYear)), 1:3])
   assign(edgelistName, createEdgeList(get(authorYearName)))
-  assign(adjmatName, creatAdjmat(get(edgelistName)))
+  assign(adjmatName, createAdjmat(get(edgelistName)))
   assign(diffNetName, createDiffNet(get(diffNetName), get(adjmatName)))
   count = count + 1
 }
