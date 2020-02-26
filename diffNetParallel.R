@@ -1,9 +1,6 @@
-#WORKING TO SEPERATE PROGRAM INTO FUNCTIONS
-
 #library(netdiffuseR)
 
-
-  createList <- function(CSV)
+createList <- function(CSV){
   authYr = data.frame(matrix(ncol = 3, nrow = 0), stringsAsFactors = FALSE)
   
   #renames columns in authYr
@@ -55,7 +52,7 @@
   #the next step is to create an edgelist out of their id's
   
   #deletes variables that will no be used again
-  #rm(newRow, auth, count, i, id, j, min, minIndex, temp, year)
+  rm(newRow, auth, count, i, id, j, min, minIndex, temp, year)
   
   return(authYr)
 }
@@ -93,7 +90,6 @@ createEdgeList <- function(authorYear){
 }
 
 creatAdjmat <- function(authEdgelist){
-  
   temp <- edgelist_to_adjmat(
     edgelist = authEdgelist[,1:2], 
     undirected = FALSE, 
@@ -158,7 +154,7 @@ CSV = read.csv(file.choose(), header = FALSE, stringsAsFactors = FALSE, fileEnco
 
 authorYear = createList(CSV)
 
-quant = floor(nrow(authorYear)/500) + 1
+quant = floor(nrow(authorYear)/1000) + 1
 
 count = 0
 
@@ -169,7 +165,7 @@ while(count < quant){
   diffNetName = paste("diffnet", count+1, sep = "")
   
   
-  assign(authorYearName, authorYear[(count*500+1):min((count*500)+500, nrow(authorYear)), 1:3])
+  assign(authorYearName, authorYear[(count*1000+1):min((count*1000)+1000, nrow(authorYear)), 1:3])
   assign(edgelistName, createEdgeList(get(authorYearName)))
   assign(adjmatName, creatAdjmat(get(edgelistName)))
   assign(diffNetName, createDiffNet(get(diffNetName), get(adjmatName)))
@@ -187,31 +183,9 @@ while(choice!=0){
   plotDiffNet(get(diffNetName), get(adjmatName))
   
   cat("There are ", count, " plots available. Choose between 1 - ", count, ". Enter 0 to quit.")
-  
   choice = as.integer(readline())
 }
 
-##
-count = 0
-maxRange = 0
-maxYear = 0
-year = 0
-
-for(k in 1:nrow(CSV)){
-  if(year != CSV[k,1]){
-    if(max(maxRange, count) == count){
-      maxYear = year
-      year = CSV[k,1]
-      maxRange = count
-    } 
-    year = CSV[k,1]
-    count = 0
-  } else {
-    count = count + 1
-  }
-}
-
-
-
+rm(authorYearName, choice, count, edgelistName, quant, authorYear, CSV, edgelist1)
 
 
