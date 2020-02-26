@@ -188,3 +188,6 @@ while(choice!=0){
   choice = as.integer(readline())
 }
 
+
+rm(authorYearName, choice, count, edgelistName, quant, authorYear, CSV, edgelist1)
+
